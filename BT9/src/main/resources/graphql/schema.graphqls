@@ -1,0 +1,105 @@
+type Category {
+    id: ID!
+    name: String!
+    images: String
+}
+
+type User {
+    id: ID!
+    fullname: String!
+    email: String!
+    password: String!
+    phone: String
+}
+
+type Product {
+    id: ID!
+    title: String!
+    quantity: Int!
+    description: String
+    price: Float!
+    userId: ID!
+    categoryId: ID
+    user: User
+    category: Category
+}
+
+input CategoryInput {
+    name: String!
+    images: String
+}
+
+input UserInput {
+    fullname: String!
+    email: String!
+    password: String!
+    phone: String
+}
+
+input ProductInput {
+    title: String!
+    quantity: Int!
+    description: String
+    price: Float!
+    userId: ID!
+    categoryId: ID
+}
+
+input CategoryUpdateInput {
+    id: ID!
+    name: String
+    images: String
+}
+
+input UserUpdateInput {
+    id: ID!
+    fullname: String
+    email: String
+    password: String
+    phone: String
+}
+
+input ProductUpdateInput {
+    id: ID!
+    title: String
+    quantity: Int
+    description: String
+    price: Float
+    userId: ID
+    categoryId: ID
+}
+
+type Query {
+    # Category queries
+    getAllCategories: [Category]
+    getCategoryById(id: ID!): Category
+    
+    # User queries
+    getAllUsers: [User]
+    getUserById(id: ID!): User
+    getUserByEmail(email: String!): User
+    
+    # Product queries
+    getAllProducts: [Product]
+    getProductById(id: ID!): Product
+    getProductsByPriceAsc: [Product]
+    getProductsByCategory(categoryId: ID!): [Product]
+    getProductsByUser(userId: ID!): [Product]
+}
+
+type Mutation {
+    # Category mutations
+    createCategory(input: CategoryInput!): Category
+    updateCategory(input: CategoryUpdateInput!): Category
+    deleteCategory(id: ID!): Boolean
+    
+    # User mutations
+    createUser(input: UserInput!): User
+    updateUser(input: UserUpdateInput!): User
+    deleteUser(id: ID!): Boolean
+    
+    # Product mutations
+    createProduct(input: ProductInput!): Product
+    updateProduct(input: ProductUpdateInput!): Product
+    deleteProduct(id: ID!): Boolean
+}
